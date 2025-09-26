@@ -1,10 +1,10 @@
 # cultunica
 app de educacion social
-📚 Cultunica - Memoria Viva de Nicaragua
+Cultunica - Memoria Viva de Nicaragua
 
 Cultunica es una plataforma web creada para preservar, promover y compartir la riqueza cultural de Nicaragua. Conectamos a personas interesadas en las tradiciones del país mediante un espacio interactivo donde se pueden publicar historias, fotografías, audios, videos y eventos culturales. La plataforma fomenta el intercambio cultural entre municipios, resaltando costumbres y expresiones que conforman la identidad nicaragüense.
 
-🎯 Propósito del Proyecto
+ Propósito del Proyecto
 
 El objetivo de Cultunica es brindar un punto de encuentro digital donde los usuarios puedan:
 
@@ -14,23 +14,22 @@ Conectarse con otros usuarios de distintos municipios.
 
 Conservar tradiciones y expresiones culturales a través de la tecnología.
 
-🚀 Características Principales
+ Características Principales
 
-🔐 Autenticación de usuarios mediante Firebase Authentication (Email/Password).
+ Autenticación de usuarios mediante Firebase Authentication (Email/Password).
 
-👤 Perfiles de usuario personalizables.
+ Perfiles de usuario personalizables.
 
-📝 Publicaciones con opciones de comentarios y reacciones.
+ Publicaciones con opciones de comentarios y reacciones.
 
-📸📹🎧 Secciones dedicadas a fotos, videos, audios y eventos culturales.
+Secciones dedicadas a fotos, videos, audios y eventos culturales.
 
-👥 Administración de amigos y comunidades.
+Administración de amigos y comunidades.
 
-💻 Interfaz moderna, adaptable y fácil de usar (responsive design).
+ Interfaz moderna, adaptable y fácil de usar (responsive design).
 
-🛠 Instalación
-
-no require debido a ser web es acesible a todo el publico 
+ Instalación
+No se requiere instalación. Al tratarse de una aplicación web, es accesible desde cualquier dispositivo con conexión a internet. Solo se necesita un navegador web moderno y la URL del sitio para comenzar a utilizarla.
 
 Configura Firebase:
 

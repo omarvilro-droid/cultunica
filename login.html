@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cultunica - Cultura Nicaragüense</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDK y configuración centralizada -->
+    <script type="module">
+        import { app } from './firebase.js';
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        window.db = getFirestore(app);
+        window.auth = getAuth(app);
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Main Container */
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Background Animation */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            right: 15%;
+            animation-delay: -2s;
+        }
+        
+        .floating-shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: -4s;
+        }
+        
+        .floating-shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            right: 10%;
+            animation-delay: -1s;
+        }
+        
+        /* Auth Container */
+        .auth-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            width: 100%;
+            align-items: center;
+        }
+        
+        /* Left Side - Branding */
+        .brand-section {
+            color: white;
+            text-align: left;
+        }
+        
+        .brand-logo {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(255,255,255,0.3);
+        }
+        
+        .brand-tagline {
+            font-size: 1.8rem;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .brand-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Right Side - Auth Forms */
+        .auth-section {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .auth-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-subtitle {
+            color: #718096;
+            font-size: 1rem;
+        }
+        
+        /* Form Styles */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 18px 20px 18px 55px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #0e2db9;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+        
+        .form-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .form-input:focus + .form-icon {
+            color: #667eea;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 18px 25px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-transform: none;
+            letter-spacing: 0.3px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #100967 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(102,126,234,0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102,126,234,0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #153ffa;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+
+        
+        /* Form Toggle */
+        .form-toggle {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .toggle-text {
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+        
+        .toggle-link {
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .toggle-link:hover {
+            color: #1a38fb;
+            text-decoration: underline;
+        }
+        
+
+        
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .checkbox-input {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: #065bed;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+        
+        .checkbox-label a {
+            color: #0424b1;
+            text-decoration: none;
+        }
+        
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        /* Loading State */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .loading .btn {
+            position: relative;
+        }
+        
+        .loading .btn::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .brand-section {
+                text-align: center;
+            }
+            
+            .brand-logo {
+                font-size: 3rem;
+            }
+            
+            .brand-tagline {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .auth-section {
+                padding: 30px 25px;
+            }
+            
+            .auth-title {
+                font-size: 1.8rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .brand-features {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 10px;
+            }
+            
+            .auth-section {
+                padding: 25px 20px;
+            }
+            
+            .brand-logo {
+                font-size: 2.5rem;
+            }
+            
+            .brand-tagline {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splashScreen" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0c34e8 0%,#071af1 100%);display:flex;align-items:center;justify-content:center;">
+        <img src="imagotipo_cultu_nica.png" alt="CultuNica Logo" style="width:180px;max-width:60vw;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.18));">
+    </div>
+    <script>
+        // Oculta el splash después de 1 segundo
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const splash = document.getElementById('splashScreen');
+                if (splash) splash.style.display = 'none';
+            }, 1000);
+        });
+    </script>
+    <div class="main-container">
+        <!-- Background Animation -->
+        <div class="bg-animation">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+        
+        <div class="auth-container">
+            <!-- Left Side - Branding -->
+            <div class="brand-section">
+                <img src="logo.png" alt="Logo Conecta" class="brand-logo" style="width: 120px; height: auto; margin-bottom: 1rem;">
+                <p class="brand-tagline">
+                    Conecta con amigos y el mundo que te rodea en nuestra plataforma social.
+                </p>
+                
+                <div class="brand-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span>Conecta con amigos</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <span>Comparte momentos</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <span>Descubre el mundo de la cultura nicaraguense y sus historias increibles </span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <span>Crea comunidades de cada municipio y descubre costumbres increibles </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Side - Auth Forms -->
+            <div class="auth-section">
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span id="successText">¡Cuenta creada exitosamente!</span>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="loginForm">
+                    <div class="auth-header">
+                        <h2 class="auth-title">Iniciar Sesión</h2>
+                        <p class="auth-subtitle">Bienvenido de vuelta a Conecta</p>
+                    </div>
+                    
+                    <form class="auth-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <input 
+                                type="email" 
+                                class="form-input" 
+                                placeholder="Correo electrónico"
+                                id="loginEmail"
+                                required
+                            >
+                            <i class="fas fa-envelope form-icon"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input 
+                                type="password" 
+                                class="form-input" 
+                                placeholder="Contraseña"
+                                id="loginPassword"
+                                required
+                            >
+                            <i class="fas fa-lock form-icon"></i>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            Iniciar Sesión
+                        </button>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="showRegisterForm()">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            Registrarse
+                        </button>
+                    </form>
+                    
+
+                    
+                    <div class="form-toggle">
+                        <p class="toggle-text">¿No tienes una cuenta?</p>
+                        <a class="toggle-link" onclick="showRegisterForm()">
+                            Crear cuenta nueva
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="registerForm" class="hidden">
+                    <div class="auth-header">
+                        <h2 class="auth-title">Crear Cuenta</h2>
+                        <p class="auth-subtitle">Únete a nuestra comunidad</p>
+                    </div>
+                    
+                    <form class="auth-form" onsubmit="handleRegister(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input 
+                                    type="text" 
+                                    class="form-input" 
+                                    placeholder="Nombre"
+                                    id="registerFirstName"
+                                    required
+                                >
+                                <i class="fas fa-user form-icon"></i>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input 
+                                    type="text" 
+                                    class="form-input" 
+                                    placeholder="Apellido"
+                                    id="registerLastName"
+                                    required
+                                >
+                                <i class="fas fa-user form-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input 
+                                type="email" 
+                                class="form-input" 
+                                placeholder="Correo electrónico"
+                                id="registerEmail"
+                                required
+                            >
+                            <i class="fas fa-envelope form-icon"></i>
+                        </div>
+                        <div class="form-group">
+                            <input 
+                                type="tel" 
+                                class="form-input" 
+                                placeholder="Número telefónico"
+                                id="registerPhone"
+                                pattern="[0-9]{8,15}"
+                                title="Ingresa un número válido (solo dígitos, mínimo 8)"
+                                required
+                            >
+                            <i class="fas fa-phone form-icon"></i>
+                        </div>
+                        <div class="form-group">
+                            <input 
+                                type="password" 
+                                class="form-input" 
+                                placeholder="Contraseña (mínimo 8 caracteres)"
+                                id="registerPassword"
+                                minlength="8"
+                                required
+                            >
+                            <i class="fas fa-lock form-icon"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input 
+                                type="password" 
+                                class="form-input" 
+                                placeholder="Confirmar contraseña"
+                                id="confirmPassword"
+                                required
+                            >
+                            <i class="fas fa-lock form-icon"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input 
+                                type="date" 
+                                class="form-input" 
+                                id="birthDate"
+                                required
+                            >
+                            <i class="fas fa-calendar form-icon"></i>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input 
+                                type="checkbox" 
+                                class="checkbox-input" 
+                                id="agreeTerms"
+                                required
+                            >
+                            <label class="checkbox-label" for="agreeTerms">
+                                Acepto los <a href="#" onclick="showTerms()">Términos de Servicio</a> 
+                                y la <a href="#" onclick="showPrivacy()">Política de Privacidad</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            Crear Cuenta
+                        </button>
+                    </form>
+                    
+
+                    
+                    <div class="form-toggle">
+                        <p class="toggle-text">¿Ya tienes una cuenta?</p>
+                        <a class="toggle-link" onclick="showLoginForm()">
+                            Iniciar sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form Management
+        function showLoginForm() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            hideSuccessMessage();
+        }
+
+        function showRegisterForm() {
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+            hideSuccessMessage();
+        }
+
+        // Success Message
+        function showSuccessMessage(message) {
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            successText.textContent = message;
+            successMessage.classList.add('show');
+        }
+
+        function hideSuccessMessage() {
+            document.getElementById('successMessage').classList.remove('show');
+        }
+
+        // Loading State
+        function setLoading(form, isLoading) {
+            if (isLoading) {
+                form.classList.add('loading');
+            } else {
+                form.classList.remove('loading');
+            }
+        }
+
+        // Form Validation
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 8;
+        }
+
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+
+        // Login Handler
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const form = event.target.closest('.auth-section');
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            // Validation
+            if (!validateEmail(email)) {
+                alert('Por favor ingresa un correo electrónico válido');
+                return;
+            }
+
+            if (!password) {
+                alert('Por favor ingresa tu contraseña');
+                return;
+            }
+
+            // Set loading state
+            setLoading(form, true);
+
+            // Simulate API call
+            setTimeout(() => {
+                setLoading(form, false);
+                
+                // Check if user exists (simulate database check)
+                const userData = getUserData(email);
+                
+                if (userData && userData.password === password) {
+                    // Successful login
+                    localStorage.setItem('currentUser', JSON.stringify(userData));
+                    localStorage.setItem('isLoggedIn', 'true');
+                    
+                    showSuccessMessage(`¡Bienvenido de vuelta, ${userData.firstName}!`);
+                    
+                    // Redirect to main app after 2 seconds
+                    setTimeout(() => {
+                        redirectToApp();
+                    }, 2000);
+                } else {
+                    alert('Credenciales incorrectas. Por favor verifica tu correo y contraseña.');
+                }
+            }, 1500);
+        }
+
+        // Register Handler
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const form = event.target.closest('.auth-section');
+            const firstName = document.getElementById('registerFirstName').value.trim();
+            const lastName = document.getElementById('registerLastName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+
+            // Validation
+            if (!firstName || !lastName) {
+                alert('Por favor completa tu nombre y apellido');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                alert('Por favor ingresa un correo electrónico válido');
+                return;
+            }
+
+            if (!validatePassword(password)) {
+                alert('La contraseña debe tener al menos 8 caracteres');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+
+            if (!birthDate) {
+                alert('Por favor ingresa tu fecha de nacimiento');
+                return;
+            }
+
+            const age = calculateAge(birthDate);
+            if (age < 13) {
+                alert('Debes tener al menos 13 años para crear una cuenta');
+                return;
+            }
+
+            if (!agreeTerms) {
+                alert('Debes aceptar los términos de servicio y la política de privacidad');
+                return;
+            }
+
+            // Check if user already exists
+            if (getUserData(email)) {
+                alert('Ya existe una cuenta con este correo electrónico');
+                return;
+            }
+
+            // Set loading state
+            setLoading(form, true);
+
+            // Simulate API call
+            setTimeout(() => {
+                setLoading(form, false);
+                
+                // Create user data
+                const userData = {
+                    id: generateUserId(),
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: password, // In real app, this would be hashed
+                    birthDate: birthDate,
+                    age: age,
+                    joinDate: new Date().toISOString(),
+                    profilePicture: null,
+                    isVerified: false
+                };
+
+                // Save user data
+                saveUserData(userData);
+                
+                showSuccessMessage(`¡Cuenta creada exitosamente! Bienvenido, ${firstName}!`);
+                
+                // Auto login after registration
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Redirect to main app after 2 seconds
+                setTimeout(() => {
+                    redirectToApp();
+                }, 2000);
+            }, 2000);
+        }
+
+
+
+        // Terms and Privacy
+        function showTerms() {
+            alert(`TÉRMINOS DE SERVICIO - CONECTA
+
+1. ACEPTACIÓN DE TÉRMINOS
+Al usar Conecta, aceptas estos términos de servicio.
+
+2. USO DE LA PLATAFORMA
+- Debes tener al menos 13 años
+- Proporciona información veraz
+- Respeta a otros usuarios
+- No publiques contenido ofensivo
+
+3. PRIVACIDAD
+- Protegemos tu información personal
+- No vendemos tus datos a terceros
+- Puedes controlar tu privacidad
+
+4. CONTENIDO
+- Eres responsable de tu contenido
+- Respeta los derechos de autor
+- No publiques spam o contenido malicioso
+
+5. TERMINACIÓN
+Podemos suspender cuentas que violen estos términos.
+
+Para términos completos, visita nuestro sitio web.`);
+        }
+
+        function showPrivacy() {
+            alert(`POLÍTICA DE PRIVACIDAD - CONECTA
+
+INFORMACIÓN QUE RECOPILAMOS:
+- Información de perfil (nombre, email, fecha de nacimiento)
+- Contenido que publicas
+- Información de uso de la plataforma
+
+CÓMO USAMOS TU INFORMACIÓN:
+- Proporcionar y mejorar nuestros servicios
+- Personalizar tu experiencia
+- Comunicarnos contigo
+- Mantener la seguridad
+
+COMPARTIR INFORMACIÓN:
+- No vendemos tu información personal
+- Solo compartimos con tu consentimiento
+- Podemos compartir datos agregados y anónimos
+
+TUS DERECHOS:
+- Acceder a tu información
+- Corregir datos incorrectos
+- Eliminar tu cuenta
+- Controlar configuraciones de privacidad
+
+SEGURIDAD:
+Usamos medidas de seguridad para proteger tu información.
+
+Para la política completa, visita nuestro sitio web.`);
+        }
+
+        // User Data Management
+        function generateUserId() {
+            return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function getUserData(email) {
+            const users = JSON.parse(localStorage.getItem('conectaUsers') || '{}');
+            return users[email] || null;
+        }
+
+        function saveUserData(userData) {
+            const users = JSON.parse(localStorage.getItem('conectaUsers') || '{}');
+            users[userData.email] = userData;
+            localStorage.setItem('conectaUsers', JSON.stringify(users));
+        }
+
+// (Eliminado: función duplicada redirectToApp)
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const currentUser = localStorage.getItem('currentUser');
+            
+            if (isLoggedIn === 'true' && currentUser) {
+                const userData = JSON.parse(currentUser);
+                showSuccessMessage(`¡Bienvenido de vuelta, ${userData.firstName}!`);
+                setTimeout(() => {
+                    redirectToApp();
+                }, 1500);
+            }
+            
+            // Set max date for birth date (13 years ago)
+            const maxDate = new Date();
+            maxDate.setFullYear(maxDate.getFullYear() - 13);
+            document.getElementById('birthDate').max = maxDate.toISOString().split('T')[0];
+        });
+
+        // Password visibility toggle (optional enhancement)
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-lock');
+                icon.classList.add('fa-unlock');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-unlock');
+                icon.classList.add('fa-lock');
+            }
+        }
+        /**
+         * Redirige al usuario a la interfaz principal.
+         * Reemplaza el alert de bienvenida por una redirección real.
+         */
+        function redirectToApp() {
+            // Verifica que el usuario esté logueado y tenga datos válidos
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const currentUserStr = localStorage.getItem('currentUser');
+            if (isLoggedIn === 'true' && currentUserStr) {
+            try {
+                const user = JSON.parse(currentUserStr);
+                // Verifica campos obligatorios
+                if (
+                user &&
+                user.firstName &&
+                user.lastName &&
+                user.email &&
+                user.password &&
+                user.birthDate
+                ) {
+                window.location.href = "principal.html";
+                return;
+                }
+            } catch (e) {
+                // Si hay error en el parseo, no redirige
+            }
+            }
+            alert('Información de usuario incompleta o inválida. Por favor verifica tus datos.');
+        }
+        /**
+         * Muestra la información del usuario actual en el perfil (nombre, email, teléfono).
+         * Llama esta función al cargar la página de perfil2.html.
+         */
+        function loadProfileInfo() {
+            const currentUserStr = localStorage.getItem('currentUser');
+            if (!currentUserStr) return;
+            const currentUser = JSON.parse(currentUserStr);
+
+            // Asume que tienes elementos con estos IDs en perfil2.html
+            if (document.getElementById('profileName')) {
+            document.getElementById('profileName').textContent = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
+            }
+            if (document.getElementById('profileEmail')) {
+            document.getElementById('profileEmail').textContent = currentUser.email || '';
+            }
+            if (document.getElementById('profilePhone')) {
+            document.getElementById('profilePhone').textContent = currentUser.phone || '';
+            }
+        }
+        
+        // Llama loadProfileInfo() en el DOMContentLoaded de perfil2.html
+    </script>
+    <script src="firebase.js" type="module"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97e05dfa2546e9f3',t:'MTc1NzY5MDE5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

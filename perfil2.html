@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cultunica - Cultura Nicaragüense</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDK y configuración centralizada -->
+    <script type="module">
+        import { app } from './firebase.js';
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        window.db = getFirestore(app);
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* Facebook-style Navigation Header */
+        .nav-header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 56px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 16px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1877f2;
+        }
+
+        .search-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 12px;
+            color: #65676b;
+            font-size: 0.9rem;
+        }
+
+        .search-bar input {
+            padding: 8px 12px 8px 36px;
+            border: none;
+            background: #f0f2f5;
+            border-radius: 20px;
+            width: 240px;
+            font-size: 0.9rem;
+            color: #1c1e21;
+        }
+
+        .search-bar input::placeholder {
+            color: #65676b;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-icon-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #65676b;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+        }
+
+        .nav-icon-btn:hover {
+            background: #f0f2f5;
+        }
+
+        .nav-icon-btn.active {
+            color: #1877f2;
+            background: #e7f3ff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            border: none;
+            background: transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .profile-btn:hover {
+            background: #f0f2f5;
+        }
+
+        .profile-avatar-nav {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #1877f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        /* Facebook-style Profile Layout */
+        .profile-container {
+            max-width: 940px;
+            margin: 56px auto 0;
+            background: white;
+        }
+
+        /* Cover Photo Section */
+        .cover-section {
+            position: relative;
+            height: 348px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        .cover-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cover-overlay {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .cover-btn {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #1c1e21;
+            transition: background 0.2s;
+        }
+
+        .cover-btn:hover {
+            background: rgba(255,255,255,1);
+        }
+
+        /* Profile Info Section */
+        .profile-info-section {
+            position: relative;
+            padding: 16px 16px 0;
+            border-bottom: 1px solid #dadde1;
+        }
+
+        .profile-main-info {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .profile-avatar-large {
+            width: 168px;
+            height: 168px;
+            border-radius: 50%;
+            background: #1877f2;
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            margin-top: -84px;
+            position: relative;
+        }
+
+        .avatar-camera-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 36px;
+            height: 36px;
+            background: #e4e6ea;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1c1e21;
+            transition: background 0.2s;
+        }
+
+        .avatar-camera-btn:hover {
+            background: #d8dadf;
+        }
+
+        .profile-text-info {
+            flex: 1;
+            padding-bottom: 16px;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1c1e21;
+            margin-bottom: 4px;
+        }
+
+        .profile-friends-count {
+            color: #65676b;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .profile-friends-preview {
+            display: flex;
+            gap: -4px;
+        }
+
+        .friend-avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e4e6ea;
+            border: 2px solid white;
+            margin-left: -4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #65676b;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .fb-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .fb-btn-primary {
+            background: #1877f2;
+            color: white;
+        }
+
+        .fb-btn-primary:hover {
+            background: #166fe5;
+        }
+
+        .fb-btn-secondary {
+            background: #e4e6ea;
+            color: #1c1e21;
+        }
+
+        .fb-btn-secondary:hover {
+            background: #d8dadf;
+        }
+
+        /* Profile Navigation Tabs */
+        .profile-nav {
+            display: flex;
+            gap: 0;
+            padding: 0 16px;
+        }
+
+        .profile-nav-item {
+            padding: 16px 16px 12px;
+            border: none;
+            background: transparent;
+            color: #65676b;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 4px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .profile-nav-item:hover {
+            background: #f0f2f5;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .profile-nav-item.active {
+            color: #1877f2;
+            border-bottom-color: #1877f2;
+        }
+
+        /* Content Area */
+        .profile-content {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .profile-left-column {
+            width: 360px;
+            flex-shrink: 0;
+        }
+
+        .profile-right-column {
+            flex: 1;
+        }
+
+        /* Facebook-style Cards */
+        .fb-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .fb-card-header {
+            padding: 20px 16px 16px;
+            border-bottom: 1px solid #e4e6ea;
+        }
+
+        .fb-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1c1e21;
+            margin-bottom: 8px;
+        }
+
+        .fb-card-body {
+            padding: 16px;
+        }
+
+        /* Intro Card */
+        .intro-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            color: #1c1e21;
+        }
+
+        .intro-icon {
+            width: 20px;
+            color: #65676b;
+            text-align: center;
+        }
+
+        .edit-details-btn {
+            width: 100%;
+            background: #f0f2f5;
+            color: #1c1e21;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: background 0.2s;
+        }
+
+        .edit-details-btn:hover {
+            background: #e4e6ea;
+        }
+
+        /* Photos Card */
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+            background: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #65676b;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .photo-item:hover {
+            opacity: 0.8;
+        }
+
+        /* Friends Card */
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .friend-card {
+            text-align: center;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .friend-card:hover {
+            background: #f0f2f5;
+        }
+
+        .friend-avatar {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            background: #e4e6ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #65676b;
+            margin-bottom: 8px;
+        }
+
+        .friend-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1c1e21;
+        }
+
+        /* Posts Area */
+        .create-post-card {
+            padding: 12px 16px 16px;
+        }
+
+        .create-post-top {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .create-post-input {
+            flex: 1;
+            background: #f0f2f5;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-size: 1rem;
+            color: #1c1e21;
+        }
+
+        .create-post-input::placeholder {
+            color: #65676b;
+        }
+
+        .create-post-actions {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 8px;
+            border-top: 1px solid #e4e6ea;
+        }
+
+        .create-post-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #65676b;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .create-post-btn:hover {
+            background: #f0f2f5;
+        }
+
+        .create-post-btn i {
+            font-size: 1.2rem;
+        }
+
+        .create-post-btn.video i { color: #f02849; }
+        .create-post-btn.photo i { color: #45bd62; }
+        .create-post-btn.feeling i { color: #f7b928; }
+
+        /* Activity/Timeline Posts */
+        .timeline-post {
+            padding: 16px;
+            border-bottom: 1px solid #e4e6ea;
+        }
+
+        .timeline-post:last-child {
+            border-bottom: none;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #1877f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .post-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1c1e21;
+            margin: 0;
+        }
+
+        .post-time {
+            font-size: 0.8rem;
+            color: #65676b;
+        }
+
+        .post-content {
+            color: #1c1e21;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 8px;
+            border-top: 1px solid #e4e6ea;
+        }
+
+        .post-action-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #65676b;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .post-action-btn:hover {
+            background: #f0f2f5;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e4e6ea;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1c1e21;
+            margin: 0;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #e4e6ea;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1c1e21;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #d8dadf;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-content {
+                flex-direction: column;
+                padding: 8px;
+            }
+
+            .profile-left-column {
+                width: 100%;
+            }
+
+            .profile-main-info {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-avatar-large {
+                margin-top: -84px;
+                margin-bottom: 16px;
+            }
+
+            .search-bar input {
+                width: 180px;
+            }
+
+            .nav-center {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Facebook-style Navigation Header -->
+    <nav class="nav-header">
+        <div class="nav-content">
+            <div class="nav-left">
+                <button class="nav-icon-btn" onclick="window.location.href='principal.html'">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <img src="Logo.png" alt="Cultunica Logo" class="nav-logo" style="height:40px;">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar " id="searchInput">
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <button class="nav-icon-btn active" onclick="goToHome()">
+                    <i class="fas fa-home"></i>
+                </button>
+                <button class="nav-icon-btn" onclick="showFriends()">
+                    <i class="fas fa-users"></i>
+                </button>
+                <button class="nav-icon-btn" onclick="showWatch()">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="nav-icon-btn" onclick="showMarketplace()">
+                    <i class="fas fa-store"></i>
+                </button>
+                <button class="nav-icon-btn" onclick="showGroups()">
+                    <i class="fas fa-user-friends"></i>
+                </button>
+            </div>
+            
+            <div class="nav-right">
+                <button class="nav-icon-btn" onclick="showMenu()">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="nav-icon-btn" onclick="showMessages()">
+                    <i class="fab fa-facebook-messenger"></i>
+                </button>
+                <button class="nav-icon-btn" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="profile-btn" onclick="toggleProfileMenu()">
+                    <div class="profile-avatar-nav">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Facebook-style Profile Container -->
+    <div class="profile-container">
+        <!-- Cover Photo Section -->
+        <div class="cover-section">
+            <div class="cover-overlay">
+                <button class="cover-btn" onclick="editCover()">
+                    <i class="fas fa-camera"></i>
+                    Editar portada
+                </button>
+            </div>
+        </div>
+
+        <!-- Profile Info Section -->
+        <div class="profile-info-section">
+            <div class="profile-main-info">
+                <div class="profile-avatar-large" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-text-info">
+                    <div class="profile-name" id="profileName">Usuario real</div>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const nombreUsuario = localStorage.getItem('nombre_usuario');
+                        if (nombreUsuario) {
+                            document.getElementById('profileName').textContent = nombreUsuario;
+                        }
+                    });
+                    </script>
+                    <div class="profile-actions">
+                        <button class="fb-btn fb-btn-primary" onclick="editProfile()"><i class="fas fa-edit"></i> Editar perfil</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Navigation Tabs -->
+        <div class="profile-nav">
+            <button class="profile-nav-item active" onclick="showPosts()">Publicaciones</button>
+            <button class="profile-nav-item" onclick="showAbout()">Información</button>
+            <button class="profile-nav-item" onclick="mostrarAmigosUI()">Amigos</button>
+            <button class="profile-nav-item" onclick="showPhotos()">Fotos</button>
+            <button class="profile-nav-item" onclick="showVideos()">Videos</button>
+            <button class="profile-nav-item" onclick="showMore()">Más</button>
+        </div>
+    </div>
+
+    <!-- Profile Content Area -->
+    <div class="profile-content">
+        <!-- Left Column -->
+        <div class="profile-left-column">
+            <!-- Aquí se mostrarán solo datos reales del usuario -->
+        </div>
+
+        <!-- Right Column -->
+        <div class="profile-right-column">
+            <!-- Aquí se mostrarán solo publicaciones reales del usuario -->
+            <div id="userPosts"></div>
+        </div>
+    </div>
+
+    <!-- Modals integrados visualmente en la interfaz principal -->
+    <!-- Create Post Modal -->
+    <div class="modal hidden" id="createPostModal" style="z-index:3000; display: flex; align-items: center; justify-content: center;"></div>
+        <div class="modal-content" style="box-shadow: 0 4px 24px rgba(24,119,242,0.12); border: 1px solid #e4e6ea;">
+            <div class="modal-header" style="background: #f0f2f5;">
+                <h3 class="modal-title" style="color:#1877f2;">Crear publicación</h3>
+                <button class="modal-close" onclick="closeCreatePost()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="post-creator">
+                    <div class="creator-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div class="profile-avatar-nav" style="box-shadow:0 2px 8px rgba(24,119,242,0.08);">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="creator-info"></div>
+                            <h4 id="postCreatorName" style="margin: 0; font-size: 1rem; color:#1c1e21;">''''</h4>
+                            <select class="privacy-select" id="postPrivacy" style="margin-top: 4px; padding: 4px 8px; border-radius: 6px; border: 1px solid #e4e6ea; background:#f0f2f5;">
+                                <option value="public">🌍 Público</option>
+                                <option value="friends">👥 Amigos</option>
+                                <option value="private">🔒 Solo yo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <textarea class="post-textarea" placeholder="¿Qué estás pensando?" id="postContent" style="width: 100%; min-height: 80px; border-radius: 8px; border: 1px solid #e4e6ea; padding: 8px; margin-bottom: 12px; background:#f0f2f5;"></textarea>
+                    <div class="post-options" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; justify-content: center;"></div>
+                        <button class="option-btn" onclick="addPhoto()" style="flex: 1; background: #e7f3ff; border: none; border-radius: 6px; padding: 8px; display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                            <i class="fas fa-images" style="color: #45bd62;"></i> Foto
+                        </button>
+                        <button class="option-btn" onclick="addFeeling()" style="flex: 1; background: #fffbe7; border: none; border-radius: 6px; padding: 8px; display: flex; align-items: center; gap: 6px; cursor: pointer;"></button>
+                            <i class="fas fa-smile" style="color: #f7b928;"></i> Sentimiento
+                        </button>
+                        <button class="option-btn" onclick="addLocation()" style="flex: 1; background: #e7f3ff; border: none; border-radius: 6px; padding: 8px; display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                            <i class="fas fa-map-marker-alt" style="color: #1877f2;"></i> Ubicación
+                        </button>
+                        <button class="option-btn" onclick="tagFriends()" style="flex: 1; background: #f3e7ff; border: none; border-radius: 6px; padding: 8px; display: flex; align-items: center; gap: 6px; cursor: pointer;"></button>
+                            <i class="fas fa-user-tag" style="color: #764ba2;"></i> Etiquetar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 8px; padding: 16px; background:#f0f2f5;">
+                <button class="fb-btn fb-btn-secondary" onclick="closeCreatePost()">Cancelar</button>
+                <button class="fb-btn fb-btn-primary" onclick="publishPost()">Publicar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal hidden" id="editProfileModal" style="z-index:3000;">
+        <div class="modal-content" style="box-shadow: 0 4px 24px rgba(24,119,242,0.12); border: 1px solid #e4e6ea;">
+            <div class="modal-header" style="background: #f0f2f5;"></div>
+                <h3 class="modal-title" style="color:#1877f2;">Editar perfil</h3>
+                <button class="modal-close" onclick="closeEditProfile()"></button>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #1c1e21;">Nombre</label>
+                        <input type="text" id="editName" style="width: 100%; padding: 8px 12px; border: 1px solid #e4e6ea; border-radius: 6px; font-size: 1rem; background:#f0f2f5;" placeholder="Tu nombre completo">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #1c1e21;">Biografía</label>
+                        <textarea id="editBio" style="width: 100%; padding: 8px 12px; border: 1px solid #e4e6ea; border-radius: 6px; font-size: 1rem; min-height: 80px; resize: vertical; background:#f0f2f5;" placeholder="Escribe algo sobre ti..."></textarea>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #1c1e21;">Trabajo</label>
+                        <input type="text" id="editWork" style="width: 100%; padding: 8px 12px; border: 1px solid #e4e6ea; border-radius: 6px; font-size: 1rem; background:#f0f2f5;" placeholder="¿Dónde trabajas?">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #1c1e21;">Educación</label>
+                        <input type="text" id="editEducation" style="width: 100%; padding: 8px 12px; border: 1px solid #e4e6ea; border-radius: 6px; font-size: 1rem; background:#f0f2f5;" placeholder="¿Dónde estudiaste?">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #1c1e21;">Ubicación</label>
+                        <input type="text" id="editLocation" style="width: 100%; padding: 8px 12px; border: 1px solid #e4e6ea; border-radius: 6px; font-size: 1rem; background:#f0f2f5;" placeholder="¿Dónde vives?">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 8px; padding: 16px; background:#f0f2f5;">
+                <button class="fb-btn fb-btn-secondary" onclick="closeEditProfile()">Cancelar</button>
+                <button class="fb-btn fb-btn-primary" onclick="saveProfile()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase ya está inicializado y disponible como window.db
+        /**
+         * Publica una nueva publicación con todos los datos del modal y la guarda en Firestore.
+         * Muestra la publicación en el área de publicaciones del usuario.
+         */
+        async function publishPost() {
+            const content = document.getElementById('postContent').value.trim();
+            const privacy = document.getElementById('postPrivacy').value;
+            const creatorName = profileData.name || localStorage.getItem('nombre_usuario') || 'Usuario';
+            // Puedes agregar más campos como fotos, sentimiento, ubicación, etiquetas, etc.
+            // Aquí solo se usa el texto, privacidad y nombre
+
+            if (!content) {
+                alert('Por favor escribe algo antes de publicar');
+                return;
+            }
+
+            // Construir el objeto de publicación
+            const post = {
+                contenido: content,
+                privacidad: privacy,
+                creador: creatorName,
+                fecha: new Date().toISOString(),
+                // Puedes agregar más campos aquí si los implementas (foto, sentimiento, ubicación, etiquetas)
+            };
+
+            // Guardar en Firestore (requiere que el usuario esté autenticado y su UID disponible)
+            let currentUserUid = localStorage.getItem('uid_usuario');
+            if (window.firebase && window.db && currentUserUid) {
+                try {
+                    await db.collection('usuarios').doc(currentUserUid).collection('posts').add(post);
+                } catch (e) {
+                    alert('Error al guardar la publicación: ' + e.message);
+                }
+            }
+
+            // Mostrar la publicación en el área de publicaciones
+            mostrarPublicacionEnDOM(post);
+
+            closeCreatePost();
+            alert('✅ ¡Publicación creada exitosamente!');
+        }
+
+        /**
+         * Muestra una publicación en el área de publicaciones del usuario.
+         * @param {Object} post - Objeto de publicación
+         */
+        function mostrarPublicacionEnDOM(post) {
+            const userPosts = document.getElementById('userPosts');
+            if (!userPosts) return;
+            // Crea el HTML de la publicación
+            const postHtml = `
+                <div class="timeline-post">
+                    <div class="post-header">
+                        <div class="post-avatar"><i class="fas fa-user"></i></div>
+                        <div class="post-info">
+                            <h4>${post.creador}</h4>
+                            <span class="post-time">${new Date(post.fecha).toLocaleString('es-ES')}</span>
+                        </div>
+                    </div>
+                    <div class="post-content">${post.contenido}</div>
+                    <div class="post-actions">
+                        <button class="post-action-btn" onclick="likePost()"><i class="fas fa-thumbs-up"></i> Me gusta</button>
+                        <button class="post-action-btn" onclick="commentPost()"><i class="fas fa-comment"></i> Comentar</button>
+                        <button class="post-action-btn" onclick="sharePost()"><i class="fas fa-share"></i> Compartir</button>
+                    </div>
+                </div>
+            `;
+            // Agrega la publicación al inicio
+            userPosts.insertAdjacentHTML('afterbegin', postHtml);
+        }
+
+        // Opcional: cargar publicaciones existentes al iniciar
+        document.addEventListener('DOMContentLoaded', async function() {
+            const userPosts = document.getElementById('userPosts');
+            let currentUserUid = localStorage.getItem('uid_usuario');
+            if (window.firebase && window.db && currentUserUid) {
+                try {
+                    const querySnapshot = await db.collection('usuarios').doc(currentUserUid).collection('posts').orderBy('fecha', 'desc').get();
+                    querySnapshot.forEach(doc => {
+                        mostrarPublicacionEnDOM(doc.data());
+                    });
+                } catch (e) {
+                    // Si no hay publicaciones, no mostrar error
+                }
+            }
+        });
+        // Función para agregar un amigo
+        async function agregarAmigoFirestore(currentUserUid, friendUserUid, datosDelAmigo) {
+            try {
+                await db.collection("usuarios").doc(currentUserUid).collection("amigos").doc(friendUserUid).set(datosDelAmigo);
+                alert("¡Amigo añadido exitosamente!");
+            } catch (e) {
+                alert("Error al agregar amigo: " + e.message);
+            }
+        }
+
+        // Función para mostrar lista de amigos
+        async function mostrarAmigosFirestore(currentUserUid) {
+            try {
+                const querySnapshot = await db.collection("usuarios").doc(currentUserUid).collection("amigos").get();
+                let amigos = [];
+                querySnapshot.forEach((doc) => {
+                    amigos.push(doc.data());
+                });
+                // Muestra los amigos en consola o intégralo en el DOM
+                console.log("Amigos:", amigos);
+                // Ejemplo: document.getElementById('amigosList').innerHTML = amigos.map(a => `<li>${a.nombre_usuario}</li>`).join('');
+            } catch (e) {
+                alert("Error al mostrar amigos: " + e.message);
+            }
+        }
+        let profileData = {
+           
+        };
+        
+        // Navigation Functions
+        function toggleProfileMenu() {
+            alert('Menú de perfil - En una aplicación real, esto mostraría opciones como configuración, ayuda, cerrar sesión, etc.');
+        }
+
+        function goToHome() {
+            alert('Navegando al inicio...');
+        }
+
+        function showFriends() {
+            alert('Sección de Amigos - Aquí verías tu lista completa de amigos');
+        }
+
+        function showWatch() {
+            alert('Watch - Sección de videos y contenido multimedia');
+        }
+
+        function showMarketplace() {
+            alert('Marketplace - Compra y venta de productos locales');
+        }
+
+        function showGroups() {
+            alert('Grupos - Tus grupos y comunidades');
+        }
+
+        function showMenu() {
+            alert('Menú principal - Acceso a todas las funciones de la aplicación');
+        }
+
+        function showMessages() {
+            alert('💬 MENSAJES\n\n• Laura Martínez: "¡Hola! ¿Cómo estás?" (hace 1h)\n• Diego Fernández: "¿Vamos al cine mañana?" (hace 3h)\n\nEn una aplicación real, esto abriría Messenger.');
+        }
+
+        function showNotifications() {
+            alert('📢 NOTIFICACIONES\n\n• Ana García le gustó tu publicación (hace 2h)\n• Carlos López comentó en tu foto (hace 4h)\n• María Rodríguez aceptó tu solicitud (hace 1d)');
+        }
+
+        // Profile Functions
+        function editCover() {
+            alert('Editar portada - Esta funcionalidad abriría un selector para cambiar la imagen de portada');
+        }
+
+        function changeAvatar() {
+            alert('Cambiar foto de perfil - Esta funcionalidad abriría un selector de archivos para subir una nueva foto');
+        }
+
+        function addStory() {
+            alert('Agregar historia - Esta funcionalidad te permitiría crear una historia temporal');
+        }
+
+        function editProfile() {
+            const modal = document.getElementById('editProfileModal');
+            modal.classList.remove('hidden');
+            
+            // Populate form with current data
+            document.getElementById('editName').value = profileData.name;
+            document.getElementById('editBio').value = profileData.bio;
+            document.getElementById('editWork').value = profileData.work;
+            document.getElementById('editEducation').value = profileData.education;
+            document.getElementById('editLocation').value = profileData.location;
+        }
+
+        function closeEditProfile() {
+            const modal = document.getElementById('editProfileModal');
+            modal.classList.add('hidden');
+        }
+
+        function saveProfile() {
+            // Get form data
+            const name = document.getElementById('editName').value.trim();
+            const bio = document.getElementById('editBio').value.trim();
+            const work = document.getElementById('editWork').value.trim();
+            const education = document.getElementById('editEducation').value.trim();
+            const location = document.getElementById('editLocation').value.trim();
+
+            // Update profile data
+            if (name) profileData.name = name;
+            profileData.bio = bio;
+            if (work) profileData.work = work;
+            if (education) profileData.education = education;
+            if (location) profileData.location = location;
+
+            // Update display
+            updateProfileDisplay();
+            
+            closeEditProfile();
+            alert('✅ Perfil actualizado exitosamente');
+        }
+
+        function updateProfileDisplay() {
+            // Update profile name
+            document.getElementById('profileName').textContent = profileData.name;
+            
+            // Update intro section
+            const introItems = document.querySelectorAll('.intro-item span');
+            if (introItems[0]) introItems[0].innerHTML = `Trabaja en <strong>${profileData.work}</strong>`;
+            if (introItems[1]) introItems[1].innerHTML = `Estudió en <strong>${profileData.education}</strong>`;
+            if (introItems[2]) introItems[2].innerHTML = `Vive en <strong>${profileData.location}</strong>`;
+            if (introItems[3]) introItems[3].innerHTML = `De <strong>${profileData.hometown}</strong>`;
+            if (introItems[4]) introItems[4].innerHTML = `<strong>${profileData.relationship}</strong>`;
+            if (introItems[5]) introItems[5].innerHTML = `Se unió en ${profileData.joinDate}`;
+        }
+
+        function moreOptions() {
+            alert('Más opciones - Configuración adicional del perfil, privacidad, etc.');
+        }
+
+        // Profile Navigation
+        function showPosts() {
+            alert('Mostrando publicaciones - Esta es la vista actual');
+        }
+
+        function showAbout() {
+            alert('Información - Detalles completos del perfil, trabajo, educación, etc.');
+        }
+
+        function showFriendsTab() {
+            alert('Amigos - Lista completa de amigos con opciones de búsqueda y filtrado');
+        }
+
+        function showPhotos() {
+            alert('Fotos - Galería completa de fotos organizadas por álbumes');
+        }
+
+        function showVideos() {
+            alert('Videos - Todos los videos subidos y compartidos');
+        }
+
+        function showMore() {
+            alert('Más - Secciones adicionales como check-ins, eventos, etc.');
+        }
+
+        function editDetails() {
+            editProfile();
+        }
+
+        // Post Functions
+        function createPost() {
+            const modal = document.getElementById('createPostModal');
+            modal.classList.remove('hidden');
+            
+            // Update creator name
+            document.getElementById('postCreatorName').textContent = profileData.name;
+            
+            const textarea = document.getElementById('postContent');
+            textarea.focus();
+        }
+
+        function closeCreatePost() {
+            const modal = document.getElementById('createPostModal');
+            modal.classList.add('hidden');
+            
+            // Clear form
+            document.getElementById('postContent').value = '';
+        }
+
+        function publishPost() {
+            const content = document.getElementById('postContent').value.trim();
+            const privacy = document.getElementById('postPrivacy').value;
+            
+            if (!content) {
+                alert('Por favor escribe algo antes de publicar');
+                return;
+            }
+            
+            alert(`✅ ¡Publicación creada exitosamente!\n\nContenido: "${content}"\nPrivacidad: ${privacy}\n\nEn una aplicación real, esta publicación aparecería en tu timeline y en el feed de tus amigos.`);
+            
+            closeCreatePost();
+        }
+
+        function addVideo() {
+            alert('Video en vivo - Esta funcionalidad iniciaría una transmisión en vivo');
+        }
+
+        function addPhoto() {
+            alert('Agregar foto/video - Esta funcionalidad abriría un selector de archivos multimedia');
+        }
+
+        function addFeeling() {
+            const feelings = ['😊 Feliz', '😢 Triste', '😍 Enamorado', '😎 Genial', '🤔 Pensativo', '😴 Cansado', '🎉 Emocionado', '😌 Relajado'];
+            const feeling = prompt('Selecciona un sentimiento/actividad:\n\n' + feelings.map((f, i) => `${i + 1}. ${f}`).join('\n'));
+            
+            if (feeling && feeling >= 1 && feeling <= feelings.length) {
+                const selectedFeeling = feelings[feeling - 1];
+                const textarea = document.getElementById('postContent');
+                if (textarea) {
+                    textarea.value += ` se siente ${selectedFeeling}`;
+                }
+            }
+        }
+
+        function addLocation() {
+            const location = prompt('¿Dónde estás?');
+            if (location) {
+                const textarea = document.getElementById('postContent');
+                if (textarea) {
+                    textarea.value += ` en ${location}`;
+                }
+            }
+        }
+
+        function tagFriends() {
+            alert('Etiquetar amigos - Esta funcionalidad mostraría una lista de tus amigos para etiquetar');
+        }
+
+        // Post Interactions
+        function likePost() {
+            alert('👍 ¡Te gusta esta publicación!');
+        }
+
+        function commentPost() {
+            const comment = prompt('Escribe tu comentario:');
+            if (comment) {
+                alert(`💬 Comentario agregado: "${comment}"`);
+            }
+        }
+
+        function sharePost() {
+            alert('📤 Publicación compartida en tu timeline');
+        }
+
+        // Search Function
+        function handleSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.trim();
+            
+            if (query) {
+                alert(`🔍 Buscando: "${query}"\n\nEn una aplicación real, esto mostraría resultados de personas, páginas, grupos, publicaciones, etc.`);
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize profile display
+            updateProfileDisplay();
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handleSearch();
+                    }
+                });
+            }
+        });
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(event) {
+            const createPostModal = document.getElementById('createPostModal');
+            const editProfileModal = document.getElementById('editProfileModal');
+            
+            if (createPostModal && event.target === createPostModal) {
+                closeCreatePost();
+            }
+            
+            if (editProfileModal && event.target === editProfileModal) {
+                closeEditProfile();
+            }
+        });
+        /**
+         * Guarda la información del usuario registrada desde login.html en Firestore y localStorage.
+         * Debes llamar a esta función después de que el usuario se registre exitosamente.
+         * @param {Object} userData - Objeto con los datos del usuario { uid, nombre, correo, ... }
+         */
+        async function guardarInfoRegistro(userData) {
+            if (!userData || !userData.uid) {
+                alert('Datos de usuario inválidos');
+                return;
+            }
+            // Guardar en Firestore
+            try {
+                await db.collection('usuarios').doc(userData.uid).set({
+                    nombre_usuario: userData.nombre || '',
+                    correo: userData.correo || '',
+                    fecha_registro: new Date(),
+                    bio: '',
+                    work: '',
+                    education: '',
+                    location: '',
+                    hometown: '',
+                    relationship: '',
+                    joinDate: new Date().toLocaleString('es-ES', { month: 'long', year: 'numeric' })
+                });
+                // Guardar en localStorage para mostrar en el perfil
+                localStorage.setItem('nombre_usuario', userData.nombre || '');
+                localStorage.setItem('correo_usuario', userData.correo || '');
+                // Actualizar datos en la página de perfil si está abierta
+                profileData.name = userData.nombre || 'Usuario';
+                updateProfileDisplay();
+            } catch (e) {
+                alert('Error al guardar información de registro: ' + e.message);
+            }
+        }
+    </script>
+    <script type="module" src="./firebase.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98251801c39f18e5',t:'MTc1ODQxMDg0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria Viva Nicaragua</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); }
+        .card-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header Navigation -->
+    <nav class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <img src="Logo.png" alt="Logo Memoria Viva Nicaragua" class="h-10 w-auto rounded-lg shadow-md">
+                    <span class="hidden md:block text-sm opacity-90">Preservando nuestras tradiciones</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <button onclick="showSection('feed')" class="nav-btn hover:bg-white/20 px-3 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-home mr-2"></i>Inicio
+                    </button>
+                    <button onclick="showSection('reels')" class="nav-btn hover:bg-white/20 px-3 py-2 rounded-lg transition-colors">
+    <i class="fas fa-video mr-2"></i>Reels
+</button>
+<button onclick="showSection('audios')" class="nav-btn hover:bg-white/20 px-3 py-2 rounded-lg transition-colors">
+    <i class="fas fa-microphone mr-2"></i>Audios
+</button>
+                    <button onclick="showSection('map')" class="nav-btn hover:bg-white/20 px-3 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-map-marker-alt mr-2"></i>Mapa
+                    </button>
+                    <button onclick="showSection('calendar')" class="nav-btn hover:bg-white/20 px-3 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-calendar mr-2"></i>Eventos
+                    </button>
+                    <button onclick="showSection('library')" class="nav-btn hover:bg-white/20 px-3 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-book mr-2"></i>Biblioteca
+                    </button>
+                    <button onclick="showSection('games')" class="nav-btn hover:bg-white/20 px-3 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-gamepad mr-2"></i>Juegos
+                    </button>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-plus mr-2"></i>Publicar
+                    </button>
+                    <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Feed Section -->
+        <div id="feed-section" class="section-content">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Left Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl card-shadow p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">🌟 Comunidades Activas</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">🏘️</div>
+                                <div>
+                                    <p class="font-medium text-sm">Barrio El Carmen</p>
+                                    <p class="text-xs text-gray-500">124 memorias</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">🌾</div>
+                                <div>
+                                    <p class="font-medium text-sm">Masaya Tradicional</p>
+                                    <p class="text-xs text-gray-500">89 memorias</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">🎭</div>
+                                <div>
+                                    <p class="font-medium text-sm">Granada Colonial</p>
+                                    <p class="text-xs text-gray-500">156 memorias</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl card-shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">📅 Próximos Eventos</h3>
+                        <div class="space-y-3">
+                            <div class="border-l-4 border-blue-500 pl-3">
+                                <p class="font-medium text-sm">Festival del Maíz</p>
+                                <p class="text-xs text-gray-500">15 de Diciembre</p>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-3">
+                                <p class="font-medium text-sm">Noche de Leyendas</p>
+                                <p class="text-xs text-gray-500">20 de Diciembre</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Feed -->
+                <div class="lg:col-span-2">
+                    <!-- Create Post -->
+                    <div class="bg-white rounded-xl card-shadow p-6 mb-6">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                                MV
+                            </div>
+                            <input type="text" placeholder="Comparte una memoria de tu comunidad..." 
+                                   class="flex-1 bg-gray-100 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-4">
+                                <button class="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <i class="fas fa-image"></i>
+                                    <span class="text-sm">Foto</span>
+                                </button>
+                                <button class="flex items-center space-x-2 text-gray-600 hover:text-green-600 transition-colors">
+                                    <i class="fas fa-video"></i>
+                                    <span class="text-sm">Video</span>
+                                </button>
+                                <button class="flex items-center space-x-2 text-gray-600 hover:text-purple-600 transition-colors">
+                                    <i class="fas fa-microphone"></i>
+                                    <span class="text-sm">Audio</span>
+                                </button>
+                                <button class="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span class="text-sm">Ubicación</span>
+                                </button>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
+                                Publicar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Posts -->
+                   
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+         
+        <div id="map-section" class="section-content hidden">
+            <div class="bg-white rounded-xl card-shadow p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">🗺️ Mapa de Memorias</h2>
+                    <div class="flex space-x-2">
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Todos los departamentos</option>
+                            <option>Boaco</option>
+                            <option>Carazo</option>
+                            <option>Chinandega</option>
+                            <option>Chontales</option>
+                            <option>Estelí</option>
+                            <option>Granada</option>
+                            <option>Jinotega</option>
+                            <option>León</option>
+                            <option>Madriz</option>
+                            <option>Managua</option>
+                            <option>Masaya</option>
+                            <option>Matagalpa</option>
+                            <option>Nueva Segovia</option>
+                            <option>Río San Juan</option>
+                            <option>Rivas</option>
+                            <option>Atlántico Norte</option>
+                            <option>Atlántico Sur</option>
+                        </select>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-filter mr-2"></i>Filtrar
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="mapa-publicaciones" class="bg-gradient-to-br from-blue-100 to-green-100 rounded-lg h-96 flex items-center justify-center mb-6"></div>
+                <script>
+                function inicializarMapaPublicaciones() {
+                    let mapaDiv = document.getElementById('mapa-publicaciones');
+                    if (!mapaDiv) {
+                        mapaDiv = document.createElement('div');
+                        mapaDiv.id = 'mapa-publicaciones';
+                        mapaDiv.style = 'width:100%;height:500px;border-radius:16px;overflow:hidden;margin-bottom:2rem;';
+                        const mapSection = document.querySelector('#map-section .bg-white.rounded-xl.card-shadow.p-6');
+                        if (mapSection) {
+                            mapSection.insertBefore(mapaDiv, mapSection.children[2]);
+                        }
+                    }
+
+                    function crearMapa() {
+                        mapaDiv.innerHTML = '';
+                        const mapa = L.map('mapa-publicaciones').setView([12.1364, -86.2514], 7);
+
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '© OpenStreetMap contributors'
+                        }).addTo(mapa);
+
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(pos) {
+                                const lat = pos.coords.latitude;
+                                const lng = pos.coords.longitude;
+                                L.marker([lat, lng]).addTo(mapa)
+                                    .bindPopup('Tu ubicación actual').openPopup();
+                                mapa.setView([lat, lng], 11);
+                            });
+                        }
+
+                        // Ejemplo: publicaciones con ubicación
+                        const publicaciones = [
+                            {
+                                titulo: "Memoria en Masaya",
+                                usuario: "María González",
+                                etiqueta: "Tradiciones",
+                                lat: 11.9744,
+                                lng: -86.0942
+                            },
+                            {
+                                titulo: "Leyenda en Granada",
+                                usuario: "Carlos Mendoza",
+                                etiqueta: "Leyendas",
+                                lat: 11.9344,
+                                lng: -85.9560
+                            },
+                            {
+                                titulo: "Receta en León",
+                                usuario: "Ana Rodríguez",
+                                etiqueta: "Recetas",
+                                lat: 12.4345,
+                                lng: -86.8792
+                            }
+                        ];
+
+                        publicaciones.forEach(pub => {
+                            L.marker([pub.lat, pub.lng]).addTo(mapa)
+                                .bindPopup(`<strong>${pub.titulo}</strong><br>
+                                    <span>${pub.usuario}</span><br>
+                                    <span style="background:#bfdbfe;color:#1e40af;font-size:12px;padding:2px 8px;border-radius:9999px;">${pub.etiqueta}</span>`);
+                        });
+                    }
+
+                    if (typeof L === 'undefined') {
+                        const leafletCss = document.createElement('link');
+                        leafletCss.rel = 'stylesheet';
+                        leafletCss.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                        document.head.appendChild(leafletCss);
+
+                        const leafletJs = document.createElement('script');
+                        leafletJs.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                        leafletJs.onload = crearMapa;
+                        document.body.appendChild(leafletJs);
+                    } else {
+                        crearMapa();
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', inicializarMapaPublicaciones);
+                </script>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 hover-lift cursor-pointer">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">📍</span>
+                            <h4 class="font-semibold text-gray-800">Managua Centro</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">45 memorias registradas</p>
+                        <div class="flex space-x-2">
+                            <span class="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full">Tradiciones</span>
+                            <span class="bg-green-200 text-green-800 text-xs px-2 py-1 rounded-full">Recetas</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 hover-lift cursor-pointer">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">📍</span>
+                            <h4 class="font-semibold text-gray-800">Granada Colonial</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">67 memorias registradas</p>
+                        <div class="flex space-x-2">
+                            <span class="bg-purple-200 text-purple-800 text-xs px-2 py-1 rounded-full">Leyendas</span>
+                            <span class="bg-yellow-200 text-yellow-800 text-xs px-2 py-1 rounded-full">Historia</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg p-4 hover-lift cursor-pointer">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">📍</span>
+                            <h4 class="font-semibold text-gray-800">Masaya Artesanal</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">32 memorias registradas</p>
+                        <div class="flex space-x-2">
+                            <span class="bg-red-200 text-red-800 text-xs px-2 py-1 rounded-full">Artesanías</span>
+                            <span class="bg-orange-200 text-orange-800 text-xs px-2 py-1 rounded-full">Música</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sección de Reels -->
+        <div id="reels-section" class="section-content hidden">
+            <div class="bg-white rounded-xl card-shadow p-6">
+               <!-- Create Post -->
+                    <div class="bg-white rounded-xl card-shadow p-6 mb-6">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                                MV
+                            </div>
+                            <input type="text" placeholder="Comparte una memoria de tu comunidad..." 
+                                   class="flex-1 bg-gray-100 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-4">
+                                
+                                <button class="flex items-center space-x-2 text-gray-600 hover:text-green-600 transition-colors">
+                                    <i class="fas fa-video"></i>
+                                    <span class="text-sm">Video</span>
+                                </button>
+                                <button class="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span class="text-sm">Ubicación</span>
+                                </button>
+                                </div>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
+                                Publicar
+                            </button>
+                        </div>
+                    </div>
+        <div>
+            <!-- Aquí iría la lista de reels subidos -->
+            <p class="text-gray-600">Solo se muestran videos tipo reels.</p>
+        </div>
+    </div>
+</div>
+        <div id="audios-section" class="section-content hidden">
+    <div class="bg-white rounded-xl card-shadow p-6">
+        
+                    <div class="bg-white rounded-xl card-shadow p-6 mb-6">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                                MV
+                            </div>
+                            <input type="text" placeholder="Comparte una memoria de tu comunidad..." 
+                                   class="flex-1 bg-gray-100 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-4">
+                                <button class="flex items-center space-x-2 text-gray-600 hover:text-purple-600 transition-colors">
+                                    <i class="fas fa-microphone"></i>
+                                    <span class="text-sm">Audio</span>
+                                </button>
+                                <button class="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span class="text-sm">Ubicación</span>
+                                </button>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
+                                Publicar
+                            </button>
+                        </div>
+                    </div>
+        <div>
+            <!-- Aquí iría la lista de audios subidos -->
+            <p class="text-gray-600">Solo se muestran audios de la comunidad.</p>
+        </div>
+    </div>
+</div>
+        <!-- Calendar Section -->
+        <div id="calendar-section" class="section-content hidden">
+            <div class="bg-white rounded-xl card-shadow p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">📅 Calendario Cultural</h2>
+                    <div class="flex space-x-2">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-plus mr-2"></i>Agregar Evento
+                        </button>
+                    </div>
+                </div>
+<!-- Modal para mostrar detalles del evento -->
+<div id="event-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-lg relative">
+        <button onclick="closeEventModal()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-xl">&times;</button>
+        <h3 id="modal-title" class="text-xl font-bold mb-2"></h3>
+        <p id="modal-desc" class="text-gray-700 mb-3"></p>
+        <div id="modal-extra" class="text-sm text-gray-500"></div>
+    </div>
+</div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">🎉 Próximos Eventos</h3>
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-red-100 text-red-600 rounded-lg p-3 text-center min-w-[60px]">
+                                        <div class="text-lg font-bold">15</div>
+                                        <div class="text-xs">DIC</div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-gray-800 mb-1">Festival del Maíz</h4>
+                                        <p class="text-sm text-gray-600 mb-2">Celebración tradicional con comidas típicas y música folclórica</p>
+                                        <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                            <span><i class="fas fa-map-marker-alt mr-1"></i>Masaya</span>
+                                            <span><i class="fas fa-clock mr-1"></i>10:00 AM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-blue-100 text-blue-600 rounded-lg p-3 text-center min-w-[60px]">
+                                        <div class="text-lg font-bold">20</div>
+                                        <div class="text-xs">DIC</div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-gray-800 mb-1">Noche de Leyendas</h4>
+                                        <p class="text-sm text-gray-600 mb-2">Narración de cuentos y leyendas tradicionales nicaragüenses</p>
+                                        <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                            <span><i class="fas fa-map-marker-alt mr-1"></i>Granada</span>
+                                            <span><i class="fas fa-clock mr-1"></i>7:00 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-green-100 text-green-600 rounded-lg p-3 text-center min-w-[60px]">
+                                        <div class="text-lg font-bold">25</div>
+                                        <div class="text-xs">DIC</div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-gray-800 mb-1">Taller de Artesanías</h4>
+                                        <p class="text-sm text-gray-600 mb-2">Aprende técnicas tradicionales de cerámica y tejido</p>
+                                        <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                            <span><i class="fas fa-map-marker-alt mr-1"></i>San Juan de Oriente</span>
+                                            <span><i class="fas fa-clock mr-1"></i>2:00 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Estadísticas del Mes</h3>
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-blue-600">12</div>
+                                <div class="text-sm text-gray-600">Eventos este mes</div>
+                            </div>
+                            <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-green-600">450</div>
+                                <div class="text-sm text-gray-600">Participantes</div>
+                            </div>
+                            <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-purple-600">8</div>
+                                <div class="text-sm text-gray-600">Comunidades</div>
+                            </div>
+                            <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-yellow-600">25</div>
+                                <div class="text-sm text-gray-600">Tradiciones</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">🎯 Evento Destacado</h4>
+                            <div class="text-center">
+                                <div class="text-4xl mb-2">🎭</div>
+                                <h5 class="font-semibold text-gray-800 mb-2">Festival de Tradiciones Navideñas</h5>
+                                <p class="text-sm text-gray-600 mb-3">31 de Diciembre - Plaza Central, Managua</p>
+                                <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                                    Más información
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Library Section -->
+        <div id="library-section" class="section-content hidden">
+            <div class="bg-white rounded-xl card-shadow p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">📚 Biblioteca de Saberes</h2>
+                    <div class="flex space-x-2">
+                        <input type="text" placeholder="Buscar saberes..." 
+                               class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <button onclick="filterLibrary('recetas')" class="library-filter bg-gradient-to-r from-orange-100 to-red-100 rounded-lg p-4 text-center hover:shadow-md transition-shadow">
+                        <div class="text-3xl mb-2">🍽️</div>
+                        <h4 class="font-semibold text-gray-800">Recetas</h4>
+                        <p class="text-sm text-gray-600">Comida tradicional</p>
+                    </button>
+                    <button onclick="filterLibrary('artesanias')" class="library-filter bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-4 text-center hover:shadow-md transition-shadow">
+                        <div class="text-3xl mb-2">🎨</div>
+                        <h4 class="font-semibold text-gray-800">Artesanías</h4>
+                        <p class="text-sm text-gray-600">Técnicas ancestrales</p>
+                    </button>
+                    <button onclick="filterLibrary('leyendas')" class="library-filter bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg p-4 text-center hover:shadow-md transition-shadow">
+                        <div class="text-3xl mb-2">📖</div>
+                        <h4 class="font-semibold text-gray-800">Leyendas</h4>
+                        <p class="text-sm text-gray-600">Historias populares</p>
+                    </button>
+                    <button onclick="filterLibrary('musica')" class="library-filter bg-gradient-to-r from-green-100 to-teal-100 rounded-lg p-4 text-center hover:shadow-md transition-shadow">
+                        <div class="text-3xl mb-2">🎵</div>
+                        <h4 class="font-semibold text-gray-800">Música</h4>
+                        <p class="text-sm text-gray-600">Folclore nacional</p>
+                    </button>
+                </div>
+
+                <div id="library-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow hover-lift">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">🫔</span>
+                            <h4 class="font-semibold text-gray-800">Nacatamal Tradicional</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Receta familiar transmitida por 4 generaciones en el barrio El Carmen.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Receta</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver más</button>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow hover-lift">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">🏺</span>
+                            <h4 class="font-semibold text-gray-800">Cerámica de Jinotega</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Técnicas ancestrales para crear vasijas y objetos decorativos.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Artesanía</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver más</button>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow hover-lift">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">👻</span>
+                            <h4 class="font-semibold text-gray-800">La Carreta Nagua</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Leyenda popular sobre apariciones nocturnas en los caminos rurales.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Leyenda</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver más</button>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow hover-lift">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">🎶</span>
+                            <h4 class="font-semibold text-gray-800">El Güegüense</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Drama folclórico nicaragüense, patrimonio cultural de la humanidad.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Música</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver más</button>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow hover-lift">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">🌽</span>
+                            <h4 class="font-semibold text-gray-800">Atol de Elote</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Bebida tradicional preparada con maíz tierno y especias naturales.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Receta</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver más</button>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow hover-lift">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">🪶</span>
+                            <h4 class="font-semibold text-gray-800">Tejidos Miskitos</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Patrones y técnicas de tejido de la costa atlántica nicaragüense.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Artesanía</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver más</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Games Section -->
+               <div id="games-section" class="section-content hidden">
+                   <div class="bg-white rounded-xl card-shadow p-6">
+                       <div class="flex justify-between items-center mb-6">
+                       <h2 class="text-2xl font-bold text-gray-800">🎮 Juegos Educativos</h2>
+                        <div class="flex items-center space-x-4">
+                        <div class="text-sm text-gray-600">Tu puntuación: <span class="font-bold text-blue-600">1,250 pts</span></div>
+                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-trophy mr-2"></i>Ranking
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 hover-lift cursor-pointer">
+                  <div class="text-center">
+                       <div class="text-4xl mb-4">🧠</div>
+                       <h3 class="text-lg font-semibold text-gray-800 mb-2">el gueguense</h3>
+                       <p class="text-sm text-gray-600 mb-4">Demuestra tus conocimientos sobre la cultura nicaragüense</p>
+                       <div class="flex justify-between items-center mb-4">
+                            <span class="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full">Fácil</span>
+                            <span class="text-sm text-gray-500">⭐ 50 pts</span>
+                       </div>
+                       <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors"
+                       onclick="startGame('el gueguense')">
+                          Jugar Ahora
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 hover-lift cursor-pointer" onclick="startGame('memory')">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🃏</div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Memoria de Tradiciones</h3>
+                            <p class="text-sm text-gray-600 mb-4">Encuentra las parejas de elementos culturales</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-green-200 text-green-800 text-xs px-2 py-1 rounded-full">Medio</span>
+                                <span class="text-sm text-gray-500">⭐ 75 pts</span>
+                            </div>
+                            <button class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition-colors">
+                                Jugar Ahora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 hover-lift cursor-pointer" onclick="startGame('puzzle')">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🧩</div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Rompecabezas Histórico</h3>
+                            <p class="text-sm text-gray-600 mb-4">Arma imágenes de sitios históricos de Nicaragua</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-purple-200 text-purple-800 text-xs px-2 py-1 rounded-full">Difícil</span>
+                                <span class="text-sm text-gray-500">⭐ 100 pts</span>
+                            </div>
+                            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg transition-colors">
+                                Jugar Ahora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 hover-lift cursor-pointer" onclick="startGame('quiz')">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">📍</div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Geografía Nica</h3>
+                            <p class="text-sm text-gray-600 mb-4">Identifica departamentos, ciudades y lugares emblemáticos</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-yellow-200 text-yellow-800 text-xs px-2 py-1 rounded-full">Medio</span>
+                                <span class="text-sm text-gray-500">⭐ 60 pts</span>
+                            </div>
+                            <button class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg transition-colors">
+                                Jugar Ahora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 hover-lift cursor-pointer" onclick="startGame('words')">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🔤</div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Palabras Cruzadas</h3>
+                            <p class="text-sm text-gray-600 mb-4">Descubre términos y expresiones nicaragüenses</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-red-200 text-red-800 text-xs px-2 py-1 rounded-full">Fácil</span>
+                                <span class="text-sm text-gray-500">⭐ 40 pts</span>
+                            </div>
+                            <button class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-colors">
+                                Jugar Ahora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-6 hover-lift cursor-pointer" onclick="startGame('challenge')">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🏆</div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Desafío Semanal</h3>
+                            <p class="text-sm text-gray-600 mb-4">Reto especial con preguntas de alta dificultad</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-indigo-200 text-indigo-800 text-xs px-2 py-1 rounded-full">Experto</span>
+                                <span class="text-sm text-gray-500">⭐ 200 pts</span>
+                            </div>
+                            <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition-colors">
+                                Aceptar Desafío
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">🏅 Tabla de Líderes</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-xl">🥇</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">María González</p>
+                                    <p class="text-sm text-gray-500">Granada</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-yellow-600">2,450 pts</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-xl">🥈</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Carlos Mendoza</p>
+                                    <p class="text-sm text-gray-500">Managua</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-gray-600">2,100 pts</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-xl">🥉</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Ana Rodríguez</p>
+                                    <p class="text-sm text-gray-500">León</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-orange-600">1,890 pts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+        <div class="flex justify-around">
+            <button onclick="showSection('feed')" class="mobile-nav-btn flex flex-col items-center py-2 text-gray-600">
+                <i class="fas fa-home text-lg"></i>
+                <span class="text-xs mt-1">Inicio</span>
+            </button>
+            <button onclick="showSection('map')" class="mobile-nav-btn flex flex-col items-center py-2 text-gray-600">
+                <i class="fas fa-map-marker-alt text-lg"></i>
+                <span class="text-xs mt-1">Mapa</span>
+            </button>
+            <button onclick="showSection('calendar')" class="mobile-nav-btn flex flex-col items-center py-2 text-gray-600">
+                <i class="fas fa-calendar text-lg"></i>
+                <span class="text-xs mt-1">Eventos</span>
+            </button>
+            <button onclick="showSection('library')" class="mobile-nav-btn flex flex-col items-center py-2 text-gray-600">
+                <i class="fas fa-book text-lg"></i>
+                <span class="text-xs mt-1">Biblioteca</span>
+            </button>
+            <button onclick="showSection('games')" class="mobile-nav-btn flex flex-col items-center py-2 text-gray-600">
+                <i class="fas fa-gamepad text-lg"></i>
+                <span class="text-xs mt-1">Juegos</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // =========================
+        // Mostrar sección activa
+        // =========================
+        function showSection(sectionName) {
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => section.classList.add('hidden'));
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+            const navButtons = document.querySelectorAll('.nav-btn, .mobile-nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('bg-white/30', 'text-blue-600');
+                btn.classList.add('text-gray-600');
+            });
+            if (event && event.target && event.target.closest('button')) {
+                event.target.closest('button').classList.add('bg-white/30');
+                event.target.closest('button').classList.remove('text-gray-600');
+            }
+        }
+
+        // =========================
+        // Juegos
+        // =========================
+        function startGame(gameType) {
+            if (gameType === 'el gueguense') {
+                window.location.href = 'gamegue.html';
+                return;
+            }
+            const gameNames = {
+                'memory': 'Memoria de Tradiciones',
+                'puzzle': 'Rompecabezas Histórico',
+                'quiz': 'Geografía Nica',
+                'words': 'Palabras Cruzadas',
+                'challenge': 'Desafío Semanal'
+            };
+            alert(`¡Iniciando ${gameNames[gameType]}! 🎮\n\nEsta funcionalidad se implementaría con lógica de juego completa.`);
+        }
+
+        // =========================
+        // Publicaciones (Feed, Reels, Audios) - Mejorado
+        // =========================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Usuario actual
+            const usuarioActual = {
+                nombre: (window.currentUser && window.currentUser.nombre_usuario) || "María González",
+                username: (window.currentUser && window.currentUser.username) || "maria.gonzalez",
+                avatar: (window.currentUser && window.currentUser.avatar) || "https://ui-avatars.com/api/?name=María+González&background=3b82f6&color=fff"
+            };
+
+            // Etiquetas
+            const etiquetas = [
+                { value: "Tradiciones", html: `<span class="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full">Tradiciones</span>` },
+                { value: "Recetas", html: `<span class="bg-green-200 text-green-800 text-xs px-2 py-1 rounded-full">Recetas</span>` },
+                { value: "Leyendas", html: `<span class="bg-purple-200 text-purple-800 text-xs px-2 py-1 rounded-full">Leyendas</span>` },
+                { value: "Historia", html: `<span class="bg-yellow-200 text-yellow-800 text-xs px-2 py-1 rounded-full">Historia</span>` },
+                { value: "Artesanías", html: `<span class="bg-red-200 text-red-800 text-xs px-2 py-1 rounded-full">Artesanías</span>` },
+                { value: "Música", html: `<span class="bg-orange-200 text-orange-800 text-xs px-2 py-1 rounded-full">Música</span>` }
+            ];
+
+            // Selector de etiquetas
+            function crearSelectorEtiquetas(parentDiv) {
+                if (parentDiv.querySelector('.etiqueta-select')) return;
+                const selectDiv = document.createElement('div');
+                selectDiv.className = 'etiqueta-select mb-2 flex items-center space-x-2';
+                selectDiv.innerHTML = `
+                    <label class="text-sm font-semibold text-gray-700 mr-2">Etiqueta:</label>
+                    <select class="bg-gray-100 rounded px-2 py-1 border border-gray-300 focus:ring-2 focus:ring-blue-500" required>
+                        <option value="">Selecciona una etiqueta</option>
+                        ${etiquetas.map(e => `<option value="${e.value}">${e.value}</option>`).join('')}
+                    </select>
+                `;
+                parentDiv.appendChild(selectDiv);
+            }
+
+            // FEED
+            const feedPublicarDiv = document.querySelector('#feed-section .bg-white.rounded-xl.card-shadow.p-6.mb-6 .flex.items-center.space-x-4');
+            crearSelectorEtiquetas(feedPublicarDiv);
+            const feedInput = document.querySelector('#feed-section input[type="text"]');
+            const feedPublishBtn = document.querySelector('#feed-section .bg-blue-600');
+            const feedPhotoBtn = document.querySelector('#feed-section .fa-image').parentElement;
+            const feedVideoBtn = document.querySelector('#feed-section .fa-video').parentElement;
+            const feedAudioBtn = document.querySelector('#feed-section .fa-microphone').parentElement;
+            let feedPostsContainer = document.querySelector('#feed-posts');
+            if (!feedPostsContainer) {
+                feedPostsContainer = document.createElement('div');
+                feedPostsContainer.id = 'feed-posts';
+                feedPostsContainer.className = 'space-y-4 mt-6';
+                document.querySelector('#feed-section .lg\\:col-span-2').appendChild(feedPostsContainer);
+            }
+            let feedPhotoInput = document.createElement('input');
+            feedPhotoInput.type = 'file';
+            feedPhotoInput.accept = 'image/*';
+            feedPhotoInput.style.display = 'none';
+            document.body.appendChild(feedPhotoInput);
+
+            let feedVideoInput = document.createElement('input');
+            feedVideoInput.type = 'file';
+            feedVideoInput.accept = 'video/*';
+            feedVideoInput.style.display = 'none';
+            document.body.appendChild(feedVideoInput);
+
+            let feedAudioInput = document.createElement('input');
+            feedAudioInput.type = 'file';
+            feedAudioInput.accept = 'audio/*';
+            feedAudioInput.style.display = 'none';
+            document.body.appendChild(feedAudioInput);
+
+            let selectedFeedFile = null;
+            let selectedFeedType = null;
+
+            feedPhotoBtn.onclick = function() { feedPhotoInput.click(); };
+            feedPhotoInput.onchange = function(e) {
+                selectedFeedFile = e.target.files[0];
+                selectedFeedType = 'foto';
+                feedPhotoBtn.classList.add('text-blue-600');
+            };
+            feedVideoBtn.onclick = function() { feedVideoInput.click(); };
+            feedVideoInput.onchange = function(e) {
+                selectedFeedFile = e.target.files[0];
+                selectedFeedType = 'video';
+                feedVideoBtn.classList.add('text-green-600');
+            };
+            feedAudioBtn.onclick = function() { feedAudioInput.click(); };
+            feedAudioInput.onchange = function(e) {
+                selectedFeedFile = e.target.files[0];
+                selectedFeedType = 'audio';
+                feedAudioBtn.classList.add('text-purple-600');
+            };
+
+            // Mejor UX: limpiar selección visual al publicar
+            function limpiarSeleccionFeed() {
+                feedPhotoBtn.classList.remove('text-blue-600');
+                feedVideoBtn.classList.remove('text-green-600');
+                feedAudioBtn.classList.remove('text-purple-600');
+            }
+
+            // Publicar en Feed
+            feedPublishBtn.onclick = function() {
+                let mensaje = feedInput.value.trim();
+                const etiquetaSelect = feedPublicarDiv.querySelector('select');
+                const etiquetaValue = etiquetaSelect.value;
+                if (!mensaje && !selectedFeedFile) {
+                    feedInput.classList.add('ring-2', 'ring-red-400');
+                    setTimeout(() => feedInput.classList.remove('ring-2', 'ring-red-400'), 1200);
+                    return;
+                }
+                if (!etiquetaValue) {
+                    etiquetaSelect.classList.add('ring-2', 'ring-red-400');
+                    setTimeout(() => etiquetaSelect.classList.remove('ring-2', 'ring-red-400'), 1200);
+                    return;
+                }
+                let post = document.createElement('div');
+                post.className = 'bg-white rounded-xl card-shadow p-4';
+                let fecha = new Date();
+                let hora = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                let etiquetaHtml = etiquetas.find(e => e.value === etiquetaValue)?.html || '';
+                let html = `
+                    <div class="flex items-center mb-2 cursor-pointer" onclick="verPerfilUsuario('${usuarioActual.username}')">
+                        <img src="${usuarioActual.avatar}" class="w-10 h-10 rounded-full mr-3 border-2 border-blue-200" alt="Avatar">
+                        <div>
+                            <span class="font-semibold text-blue-700">${usuarioActual.nombre}</span>
+                            <span class="text-xs text-gray-500 ml-2">${hora}</span>
+                        </div>
+                    </div>
+                    <div class="mb-2 text-gray-800">${mensaje ? mensaje : ''}</div>
+                    ${etiquetaHtml}
+                `;
+                if (selectedFeedFile && selectedFeedType === 'foto') {
+                    html += `<img src="${URL.createObjectURL(selectedFeedFile)}" class="rounded-lg max-w-xs mb-2" alt="Foto publicada">`;
+                }
+                if (selectedFeedFile && selectedFeedType === 'video') {
+                    html += `<video controls class="rounded-lg max-w-xs mb-2"><source src="${URL.createObjectURL(selectedFeedFile)}"></video>`;
+                }
+                if (selectedFeedFile && selectedFeedType === 'audio') {
+                    html += `<audio controls class="w-full mb-2"><source src="${URL.createObjectURL(selectedFeedFile)}"></audio>`;
+                }
+                post.innerHTML = html;
+                crearBarraInteracciones(post, fecha);
+                feedPostsContainer.prepend(post);
+                feedInput.value = '';
+                etiquetaSelect.value = '';
+                selectedFeedFile = null;
+                selectedFeedType = null;
+                limpiarSeleccionFeed();
+
+                // Guardar en Firebase (simulado)
+                // guardarPostEnFirebase({ ... });
+            };
+
+            // REELS
+            const reelsPublicarDiv = document.querySelector('#reels-section .bg-white.rounded-xl.card-shadow.p-6.mb-6 .flex.items-center.space-x-4');
+            crearSelectorEtiquetas(reelsPublicarDiv);
+            const reelsVideoBtn = document.querySelector('#reels-section .fa-video').parentElement;
+            const reelsPublishBtn = document.querySelector('#reels-section .bg-blue-600');
+            const reelsInput = document.querySelector('#reels-section input[type="text"]');
+            let reelsPostsContainer = document.querySelector('#reels-posts');
+            if (!reelsPostsContainer) {
+                reelsPostsContainer = document.createElement('div');
+                reelsPostsContainer.id = 'reels-posts';
+                reelsPostsContainer.className = 'space-y-4 mt-6';
+                document.querySelector('#reels-section > .bg-white').appendChild(reelsPostsContainer);
+            }
+            let reelsVideoInput = document.createElement('input');
+            reelsVideoInput.type = 'file';
+            reelsVideoInput.accept = 'video/*';
+            reelsVideoInput.style.display = 'none';
+            document.body.appendChild(reelsVideoInput);
+
+            let selectedReelVideo = null;
+            reelsVideoBtn.onclick = function() { reelsVideoInput.click(); };
+            reelsVideoInput.onchange = function(e) {
+                selectedReelVideo = e.target.files[0];
+                reelsVideoBtn.classList.add('text-green-600');
+            };
+            function limpiarSeleccionReel() {
+                reelsVideoBtn.classList.remove('text-green-600');
+            }
+            reelsPublishBtn.onclick = function() {
+                let mensaje = reelsInput.value.trim();
+                const etiquetaSelect = reelsPublicarDiv.querySelector('select');
+                const etiquetaValue = etiquetaSelect.value;
+                if (!mensaje && !selectedReelVideo) {
+                    reelsInput.classList.add('ring-2', 'ring-red-400');
+                    setTimeout(() => reelsInput.classList.remove('ring-2', 'ring-red-400'), 1200);
+                    return;
+                }
+                if (!etiquetaValue) {
+                    etiquetaSelect.classList.add('ring-2', 'ring-red-400');
+                    setTimeout(() => etiquetaSelect.classList.remove('ring-2', 'ring-red-400'), 1200);
+                    return;
+                }
+                let fecha = new Date();
+                let hora = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                let etiquetaHtml = etiquetas.find(e => e.value === etiquetaValue)?.html || '';
+                let post = document.createElement('div');
+                post.className = 'bg-white rounded-xl card-shadow p-4';
+                let html = `
+                    <div class="flex items-center mb-2 cursor-pointer" onclick="verPerfilUsuario('${usuarioActual.username}')">
+                        <img src="${usuarioActual.avatar}" class="w-10 h-10 rounded-full mr-3 border-2 border-blue-200" alt="Avatar">
+                        <div>
+                            <span class="font-semibold text-blue-700">${usuarioActual.nombre}</span>
+                            <span class="text-xs text-gray-500 ml-2">${hora}</span>
+                        </div>
+                    </div>
+                    <div class="mb-2 text-gray-800">${mensaje ? mensaje : ''}</div>
+                    ${etiquetaHtml}
+                `;
+                if (selectedReelVideo) {
+                    html += `<video controls class="rounded-lg max-w-xs mb-2"><source src="${URL.createObjectURL(selectedReelVideo)}"></video>`;
+                }
+                post.innerHTML = html;
+                crearBarraInteracciones(post, fecha);
+                reelsPostsContainer.prepend(post);
+                reelsInput.value = '';
+                etiquetaSelect.value = '';
+                selectedReelVideo = null;
+                limpiarSeleccionReel();
+            };
+
+            // AUDIOS
+            const audiosPublicarDiv = document.querySelector('#audios-section .bg-white.rounded-xl.card-shadow.p-6.mb-6 .flex.items-center.space-x-4');
+            crearSelectorEtiquetas(audiosPublicarDiv);
+            const audiosAudioBtn = document.querySelector('#audios-section .fa-microphone').parentElement;
+            const audiosPublishBtn = document.querySelector('#audios-section .bg-blue-600');
+            const audiosInput = document.querySelector('#audios-section input[type="text"]');
+            let audiosPostsContainer = document.querySelector('#audios-posts');
+            if (!audiosPostsContainer) {
+                audiosPostsContainer = document.createElement('div');
+                audiosPostsContainer.id = 'audios-posts';
+                audiosPostsContainer.className = 'space-y-4 mt-6';
+                document.querySelector('#audios-section > .bg-white').appendChild(audiosPostsContainer);
+            }
+            let audiosAudioInput = document.createElement('input');
+            audiosAudioInput.type = 'file';
+            audiosAudioInput.accept = 'audio/*';
+            audiosAudioInput.style.display = 'none';
+            document.body.appendChild(audiosAudioInput);
+
+            let selectedAudioFile = null;
+            audiosAudioBtn.onclick = function() { audiosAudioInput.click(); };
+            audiosAudioInput.onchange = function(e) {
+                selectedAudioFile = e.target.files[0];
+                audiosAudioBtn.classList.add('text-purple-600');
+            };
+            function limpiarSeleccionAudio() {
+                audiosAudioBtn.classList.remove('text-purple-600');
+            }
+            audiosPublishBtn.onclick = function() {
+                let mensaje = audiosInput.value.trim();
+                const etiquetaSelect = audiosPublicarDiv.querySelector('select');
+                const etiquetaValue = etiquetaSelect.value;
+                if (!mensaje && !selectedAudioFile) {
+                    audiosInput.classList.add('ring-2', 'ring-red-400');
+                    setTimeout(() => audiosInput.classList.remove('ring-2', 'ring-red-400'), 1200);
+                    return;
+                }
+                if (!etiquetaValue) {
+                    etiquetaSelect.classList.add('ring-2', 'ring-red-400');
+                    setTimeout(() => etiquetaSelect.classList.remove('ring-2', 'ring-red-400'), 1200);
+                    return;
+                }
+                let fecha = new Date();
+                let hora = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                let etiquetaHtml = etiquetas.find(e => e.value === etiquetaValue)?.html || '';
+                let post = document.createElement('div');
+                post.className = 'bg-white rounded-xl card-shadow p-4';
+                let html = `
+                    <div class="flex items-center mb-2 cursor-pointer" onclick="verPerfilUsuario('${usuarioActual.username}')">
+                        <img src="${usuarioActual.avatar}" class="w-10 h-10 rounded-full mr-3 border-2 border-blue-200" alt="Avatar">
+                        <div>
+                            <span class="font-semibold text-blue-700">${usuarioActual.nombre}</span>
+                            <span class="text-xs text-gray-500 ml-2">${hora}</span>
+                        </div>
+                    </div>
+                    <div class="mb-2 text-gray-800">${mensaje ? mensaje : ''}</div>
+                    ${etiquetaHtml}
+                `;
+                if (selectedAudioFile) {
+                    html += `<audio controls class="w-full mb-2"><source src="${URL.createObjectURL(selectedAudioFile)}"></audio>`;
+                }
+                post.innerHTML = html;
+                crearBarraInteracciones(post, fecha);
+                audiosPostsContainer.prepend(post);
+                audiosInput.value = '';
+                etiquetaSelect.value = '';
+                selectedAudioFile = null;
+                limpiarSeleccionAudio();
+            }
+
+            // Función para ver perfil
+            window.verPerfilUsuario = function(username) {
+                window.location.href = 'perfil2.html?user=' + encodeURIComponent(username);
+            };
+
+            // =========================
+            // Barra de interacciones
+            // =========================
+            function crearBarraInteracciones(postDiv, fechaPublicacion) {
+                let likes = 0;
+                let comentarios = [];
+                const barra = document.createElement('div');
+                barra.className = 'flex items-center space-x-6 mt-2 pt-2 border-t border-gray-100';
+                barra.innerHTML = `
+                    <button class="like-btn flex items-center space-x-1 text-gray-500 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span class="text-sm">Me gusta</span>
+                        <span class="ml-1 text-xs font-bold like-count">0</span>
+                    </button>
+                    <button class="comment-btn flex items-center space-x-1 text-gray-500 hover:text-green-600 transition-colors">
+                        <i class="fas fa-comment"></i>
+                        <span class="text-sm">Comentar</span>
+                        <span class="ml-1 text-xs font-bold comment-count">0</span>
+                    </button>
+                    <button class="share-btn flex items-center space-x-1 text-gray-500 hover:text-purple-600 transition-colors">
+                        <i class="fas fa-share"></i>
+                        <span class="text-sm">Compartir</span>
+                    </button>
+                    <button class="save-btn flex items-center space-x-1 text-gray-500 hover:text-yellow-600 transition-colors">
+                        <i class="fas fa-bookmark"></i>
+                        <span class="text-sm">Guardar</span>
+                    </button>
+                `;
+                barra.querySelector('.like-btn').onclick = function() {
+                    this.classList.toggle('text-blue-600');
+                    likes += this.classList.contains('text-blue-600') ? 1 : -1;
+                    barra.querySelector('.like-count').textContent = likes;
+                };
+                barra.querySelector('.comment-btn').onclick = function() {
+                    let commentBox = postDiv.querySelector('.comment-box');
+                    if (!commentBox) {
+                        commentBox = document.createElement('div');
+                        commentBox.className = 'comment-box mt-2';
+                        commentBox.innerHTML = `
+                            <input type="text" class="w-full border rounded px-2 py-1 mb-2" placeholder="Escribe un comentario...">
+                            <button class="bg-blue-600 text-white px-3 py-1 rounded text-sm">Publicar</button>
+                            <div class="comments-list mt-2 space-y-2"></div>
+                        `;
+                        postDiv.appendChild(commentBox);
+                        commentBox.querySelector('button').onclick = function() {
+                            const input = commentBox.querySelector('input');
+                            const text = input.value.trim();
+                            if (text) {
+                                const fechaComentario = new Date();
+                                comentarios.push({ usuario: usuarioActual, text, fecha: fechaComentario });
+                                barra.querySelector('.comment-count').textContent = comentarios.length;
+                                renderizarComentarios(commentBox.querySelector('.comments-list'), comentarios);
+                                input.value = '';
+                            }
+                        };
+                    } else {
+                        commentBox.classList.toggle('hidden');
+                    }
+                };
+                barra.querySelector('.share-btn').onclick = function() {
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        alert('¡Enlace de la publicación copiado para compartir!');
+                    });
+                };
+                barra.querySelector('.save-btn').onclick = function() {
+                    this.classList.toggle('text-yellow-600');
+                    alert('¡Publicación guardada para ver después!');
+                };
+                postDiv.appendChild(barra);
+
+                // Tiempo de publicación
+                const tiempoDiv = document.createElement('div');
+                tiempoDiv.className = 'text-xs text-gray-400 mt-1';
+                function actualizarTiempo() {
+                    tiempoDiv.textContent = `Publicado hace ${tiempoTranscurrido(fechaPublicacion)}`;
+                }
+                actualizarTiempo();
+                postDiv.appendChild(tiempoDiv);
+                setInterval(actualizarTiempo, 60000);
+
+                function renderizarComentarios(container, comentariosArr) {
+                    container.innerHTML = '';
+                    comentariosArr.forEach(com => {
+                        container.innerHTML += `
+                            <div class="flex items-start space-x-2">
+                                <img src="${com.usuario.avatar}" class="w-8 h-8 rounded-full border-2 border-blue-100" alt="Avatar">
+                                <div>
+                                    <span class="font-semibold text-blue-700">${com.usuario.nombre}</span>
+                                    <span class="text-xs text-gray-500 ml-2">${tiempoTranscurrido(com.fecha)}</span>
+                                    <div class="text-sm text-gray-800">${com.text}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
+            // =========================
+            // Utilidad tiempo transcurrido
+            // =========================
+            function tiempoTranscurrido(fecha) {
+                const ahora = new Date();
+                const diff = Math.floor((ahora - fecha) / 1000);
+                if (diff < 60) return `${diff} seg`;
+                if (diff < 3600) return `${Math.floor(diff/60)} min`;
+                if (diff < 86400) return `${Math.floor(diff/3600)} h`;
+                return `${Math.floor(diff/86400)} d`;
+            }
+
+            // =========================
+            // Animaciones de tarjetas
+            // =========================
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            const cards = document.querySelectorAll('.hover-lift');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Mostrar avatar en círculo de publicar
+            function actualizarCirculoPerfil(selector) {
+                const circle = document.querySelector(selector);
+                if (circle) {
+                    circle.innerHTML = `<img src="${usuarioActual.avatar}" class="w-12 h-12 rounded-full object-cover" alt="Perfil">`;
+                    circle.style.background = 'none';
+                    circle.style.padding = '0';
+                    circle.style.display = 'flex';
+                    circle.style.alignItems = 'center';
+                    circle.style.justifyContent = 'center';
+                    circle.style.cursor = 'pointer';
+                    circle.onclick = function() {
+                        window.location.href = 'perfil2.html?user=' + encodeURIComponent(usuarioActual.username);
+                    };
+                }
+            }
+            actualizarCirculoPerfil('#feed-section .bg-white.rounded-xl.card-shadow.p-6.mb-6 .flex.items-center.space-x-4 > .w-12.h-12');
+            actualizarCirculoPerfil('#reels-section .bg-white.rounded-xl.card-shadow.p-6.mb-6 .flex.items-center.space-x-4 > .w-12.h-12');
+            actualizarCirculoPerfil('#audios-section .bg-white.rounded-xl.card-shadow.p-6.mb-6 .flex.items-center.space-x-4 > .w-12.h-12');
+        });
+
+        // =========================
+        // Biblioteca: Búsqueda con lupa mejorada
+        // =========================
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('#library-section input[type="text"]');
+            const searchBtn = document.querySelector('#library-section .bg-blue-600');
+            const libraryContent = document.getElementById('library-content');
+            const allItems = Array.from(libraryContent.children);
+
+            function filtrarSaberes() {
+                const query = searchInput.value.trim().toLowerCase();
+                allItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            searchInput.addEventListener('input', filtrarSaberes);
+            searchBtn.addEventListener('click', filtrarSaberes);
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') filtrarSaberes();
+            });
+        });
+
+        // =========================
+        // Inicialización
+        // =========================
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('feed');
+        });
+        // =========================
+        // Publicar Evento (Calendario)
+        // =========================
+        document.addEventListener('DOMContentLoaded', function() {
+            const addEventBtn = document.querySelector('#calendar-section .bg-blue-600');
+            const eventModal = document.getElementById('event-modal');
+            let eventosContainer = document.querySelector('#calendar-section .space-y-4');
+            let eventos = [
+            {
+                titulo: "Festival del Maíz",
+                fecha: "15 DIC",
+                descripcion: "Celebración tradicional con comidas típicas y música folclórica",
+                lugar: "Masaya",
+                hora: "10:00 AM"
+            },
+            {
+                titulo: "Noche de Leyendas",
+                fecha: "20 DIC",
+                descripcion: "Narración de cuentos y leyendas tradicionales nicaragüenses",
+                lugar: "Granada",
+                hora: "7:00 PM"
+            },
+            {
+                titulo: "Taller de Artesanías",
+                fecha: "25 DIC",
+                descripcion: "Aprende técnicas tradicionales de cerámica y tejido",
+                lugar: "San Juan de Oriente",
+                hora: "2:00 PM"
+            }
+            ];
+
+            // Modal para agregar evento
+            function showAddEventModal() {
+            eventModal.innerHTML = `
+                <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-lg relative">
+                <button onclick="closeEventModal()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-xl">&times;</button>
+                <h3 class="text-xl font-bold mb-4">Agregar Evento</h3>
+                <input type="text" id="evento-titulo" class="w-full border rounded px-2 py-1 mb-2" placeholder="Título del evento" required>
+                <input type="text" id="evento-fecha" class="w-full border rounded px-2 py-1 mb-2" placeholder="Fecha (ej: 15 DIC)" required>
+                <input type="text" id="evento-hora" class="w-full border rounded px-2 py-1 mb-2" placeholder="Hora (ej: 10:00 AM)" required>
+                <input type="text" id="evento-lugar" class="w-full border rounded px-2 py-1 mb-2" placeholder="Lugar" required>
+                <textarea id="evento-desc" class="w-full border rounded px-2 py-1 mb-2" placeholder="Descripción" required></textarea>
+                <button id="evento-publicar" class="bg-blue-600 text-white px-4 py-2 rounded-lg w-full">Publicar Evento</button>
+                </div>
+            `;
+            eventModal.classList.remove('hidden');
+            document.getElementById('evento-publicar').onclick = function() {
+                const titulo = document.getElementById('evento-titulo').value.trim();
+                const fecha = document.getElementById('evento-fecha').value.trim();
+                const hora = document.getElementById('evento-hora').value.trim();
+                const lugar = document.getElementById('evento-lugar').value.trim();
+                const desc = document.getElementById('evento-desc').value.trim();
+                if (!titulo || !fecha || !hora || !lugar || !desc) {
+                alert('Completa todos los campos.');
+                return;
+                }
+                eventos.unshift({ titulo, fecha, descripcion: desc, lugar, hora });
+                renderizarEventos();
+                closeEventModal();
+            };
+            }
+
+            window.closeEventModal = function() {
+            eventModal.classList.add('hidden');
+            };
+
+            addEventBtn.onclick = showAddEventModal;
+
+            // Mostrar detalles de evento
+            function showEventDetail(evento) {
+            eventModal.innerHTML = `
+                <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-lg relative">
+                <button onclick="closeEventModal()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-xl">&times;</button>
+                <h3 class="text-xl font-bold mb-2">${evento.titulo}</h3>
+                <p class="text-gray-700 mb-3">${evento.descripcion}</p>
+                <div class="text-sm text-gray-500 mb-2"><i class="fas fa-map-marker-alt mr-1"></i>${evento.lugar}</div>
+                <div class="text-sm text-gray-500 mb-2"><i class="fas fa-clock mr-1"></i>${evento.hora}</div>
+                <div class="text-sm text-gray-500 mb-2"><i class="fas fa-calendar mr-1"></i>${evento.fecha}</div>
+                </div>
+            `;
+            eventModal.classList.remove('hidden');
+            }
+
+            // Renderizar eventos
+            function renderizarEventos() {
+            eventosContainer.innerHTML = '';
+            eventos.forEach(evento => {
+                const color = evento.titulo.toLowerCase().includes('maíz') ? 'red' :
+                      evento.titulo.toLowerCase().includes('leyenda') ? 'blue' :
+                      evento.titulo.toLowerCase().includes('artesanía') ? 'green' : 'gray';
+                const eventoDiv = document.createElement('div');
+                eventoDiv.className = 'border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer';
+                eventoDiv.innerHTML = `
+                <div class="flex items-start space-x-4">
+                    <div class="bg-${color}-100 text-${color}-600 rounded-lg p-3 text-center min-w-[60px]">
+                    <div class="text-lg font-bold">${evento.fecha.split(' ')[0]}</div>
+                    <div class="text-xs">${evento.fecha.split(' ')[1] || ''}</div>
+                    </div>
+                    <div class="flex-1">
+                    <h4 class="font-semibold text-gray-800 mb-1">${evento.titulo}</h4>
+                    <p class="text-sm text-gray-600 mb-2">${evento.descripcion}</p>
+                    <div class="flex items-center space-x-4 text-xs text-gray-500">
+                        <span><i class="fas fa-map-marker-alt mr-1"></i>${evento.lugar}</span>
+                        <span><i class="fas fa-clock mr-1"></i>${evento.hora}</span>
+                    </div>
+                    </div>
+                </div>
+                `;
+                eventoDiv.onclick = () => showEventDetail(evento);
+                eventosContainer.appendChild(eventoDiv);
+            });
+            }
+
+            renderizarEventos();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Icono de usuario en la barra superior
+            const userIcon = document.querySelector('nav .fa-user');
+            if (userIcon) {
+                userIcon.style.cursor = 'pointer';
+                userIcon.onclick = function() {
+                    // Redirige al perfil del usuario actual
+                    const usuarioActual = (window.currentUser && window.currentUser.username) || "maria.gonzalez";
+                    window.location.href = 'perfil2.html?user=' + encodeURIComponent(usuarioActual);
+                };
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualiza el nombre y avatar en publicaciones y comentarios si cambia el perfil
+            window.actualizarNombreUsuario = function(nuevoNombre, nuevoAvatar) {
+                // Actualiza el usuario actual global
+                if (!window.currentUser) window.currentUser = {};
+                window.currentUser.nombre_usuario = nuevoNombre;
+                window.currentUser.avatar = nuevoAvatar;
+
+                // Actualiza nombre y avatar en publicaciones
+                document.querySelectorAll('.font-semibold.text-blue-700').forEach(el => {
+                    el.textContent = nuevoNombre;
+                });
+                document.querySelectorAll('img[alt="Avatar"], img[alt="Perfil"]').forEach(img => {
+                    img.src = nuevoAvatar;
+                });
+            };
+            // Ejemplo de uso:
+            // window.actualizarNombreUsuario('Nuevo Nombre', 'https://ui-avatars.com/api/?name=Nuevo+Nombre&background=3b82f6&color=fff');
+        });
+        /*
+        Mostrar los comentarios de quienes comenten las publicaciones en la barra de interacciones.
+        Ya está implementado en la función crearBarraInteracciones, que renderiza los comentarios debajo de cada publicación.
+        Cada vez que alguien comenta, su comentario aparece con avatar, nombre y tiempo transcurrido.
+        No se requiere código adicional, la funcionalidad ya está activa.
+        */
+    </script>
+    <script src="firebase.js"></script>
+    <!-- (No modificar el siguiente script, es de Cloudflare) -->
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9797122c66730e9a',t:'MTc1NjkyMTYzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script type="module" src="principal.js"></script>

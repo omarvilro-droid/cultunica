@@ -152,6 +152,10 @@ Conexión estable a Internet (Firebase funciona en la nube).
 ¿Tienes dudas o necesitas ayuda?
 Puedes contactar al desarrollador o consultar la guía rápida incluida en el proyecto.
 
+Equipo 
+
+https://github.com/omarvilro-droid
+
 📌 Nota Final
 
 Cultunica es más que una plataforma: es un espacio digital para vivir, celebrar y preservar la cultura nicaragüense.
